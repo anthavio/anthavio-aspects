@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<configuration scan="true" scanPeriod="30 seconds">
+<!--
+	<statusListener class="ch.qos.logback.core.status.OnConsoleStatusListener" />
+-->
+	<appender name="EVENTSTORE" class="cz.komix.aspect.test.EventStoringAppender"/>
+
+	<appender name="STDOUT" class="ch.qos.logback.core.ConsoleAppender">
+		<encoder class="ch.qos.logback.classic.encoder.PatternLayoutEncoder">
+			<charset class="java.nio.charset.Charset">UTF-8</charset>
+			<pattern>%d{HH:mm:ss.SSS} [%thread] %-5level %logger{36} - %msg%n</pattern>
+		</encoder>
+	</appender>
+
+	<root>
+		<level value="trace" />
+		<appender-ref ref="STDOUT" />
+		<appender-ref ref="EVENTSTORE" />
+	</root>
+
+</configuration>
