@@ -29,7 +29,7 @@ public class ApiPolicyAspect {
 
 	static final String pcPrintStackTrace = "(call(* java.lang.Throwable.printStackTrace()))";
 
-	static final String pcNotApiOverride = "!(withincode(@cz.komix.aspect.annotation.ApiPolicyOverride * *(..)) || within(@cz.komix.aspect.annotation.ApiPolicyOverride *))";
+	static final String pcNotApiOverride = "!(withincode(@com.anthavio.aspect.ApiPolicyOverride * *(..)) || within(@com.anthavio.aspect.ApiPolicyOverride *))";
 
 	@Pointcut(pcNotApiOverride)
 	public void notApiOverrideFlag() {

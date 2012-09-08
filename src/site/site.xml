@@ -12,12 +12,12 @@
 	<version />
 
 	<body>
-		<menu name="${kmx.project.name}" inherit="top">
+		<menu name="${project.name}" inherit="top">
+		<!--
 			<item name="Wiki" href="${kmx.xwiki.url}/bin/view/KnowledgeBase/aop#Hkomix-aspects" />
 			<item name="${project.ciManagement.system}" href="${project.ciManagement.url}/view/komix-libs/" />
-			<!--
 			<item name="${project.issueManagement.system}" href="${project.issueManagement.url}/tasks.jsp?projectId=1267174069002"/>
-			-->
+		-->
 		</menu>
 				
 		<menu ref="parent" inherit="top" />

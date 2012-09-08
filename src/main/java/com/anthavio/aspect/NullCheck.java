@@ -20,7 +20,7 @@ import java.lang.annotation.Target;
 @Target( { PARAMETER, METHOD, CONSTRUCTOR })
 @Documented
 public @interface NullCheck {
-	String message() default "{cz.komix.validation.constraints.NotNull.message}";
+	String message() default "{com.anthavio.validation.constraints.NotNull.message}";
 
 	Class<?>[] groups() default {};
 	/*

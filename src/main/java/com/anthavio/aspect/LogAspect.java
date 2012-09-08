@@ -21,14 +21,13 @@ import com.anthavio.HibernateHelper;
 
 
 /**
- * AspectJ aspekt logujici volani (public) metod oznackovanych anotaci
- * {@link Logged}. Oznacit lze i tridu, cimz se loguji vsechny jeji public
- * metody
+ * AspectJ aspect logs execution of any method marked with {@link Logged} annotation. 
+ * When class is annotated, all public method executions are logged.
  * 
- * Detail argumentu je urcen nastavenim levelu loggeru - pro TRACE a DEBUG se loguje kompletni
- * toString() kazdeho argumentu, pro vyzsi urovne se loguje pouze nazev tridy (typ)
+ * On INFO log level, only argument types (class) are logged (exception - null argument is logged every time)
+ * On DEBUG log level, argument and return values (toString()) are logged
  * 
- * @author vanek, janousekm
+ * @author vanek
  */
 @Aspect
 @SuppressAjWarnings({ "adviceDidNotMatch" })
@@ -44,7 +43,7 @@ public class LogAspect {
 	private Map<Signature, ExecStats> statsMap = new ConcurrentHashMap<Signature, ExecStats>();
 
 	/** All public methods */
-	//@Pointcut("within(cz.komix..*) && execution(public * *(..))")
+	//@Pointcut("within(com.anthavio..*) && execution(public * *(..))")
 	@Pointcut("execution(public * *(..))")
 	public final void publicMethod() {
 	}
@@ -55,12 +54,12 @@ public class LogAspect {
 	}
 
 	/** @Logged annotated classes */
-	@Pointcut("within(@cz.komix.aspect.annotation.Logged *)")
+	@Pointcut("within(@com.anthavio.aspect.Logged *)")
 	public final void loggedClass() {
 	}
 
 	/** @Logged annotated methods */
-	@Pointcut("execution(@cz.komix.aspect.annotation.Logged * *(..))")
+	@Pointcut("execution(@com.anthavio.aspect.Logged * *(..))")
 	public final void loggedMethod() {
 	}
 
@@ -81,7 +80,7 @@ public class LogAspect {
 	}
 
 	/** @Logged annotated constructor */
-	@Around("execution(@cz.komix.aspect.annotation.Logged new(..)) && @annotation(cfg)")
+	@Around("execution(@com.anthavio.aspect.Logged new(..)) && @annotation(cfg)")
 	public void isLoggedConstructor(ProceedingJoinPoint pjp, Logged cfg) throws Throwable {
 		around(pjp, cfg);
 	}
@@ -136,9 +135,6 @@ public class LogAspect {
 		return retVal;
 	}
 
-	/**
-	 * Vraci logger pro tridu volanou v signature
-	 */
 	private final Logger getLogger(final Signature signature) {
 		String className = signature.getDeclaringType().getName();
 		//String className = jp.getTarget().getClass().getName(); null target for static method
@@ -150,9 +146,6 @@ public class LogAspect {
 		return LoggerFactory.getLogger(className);
 	}
 
-	/**
-	 * Zaloguje zpravu na dane urovni loggeru
-	 */
 	private final void print(final String message, final Logger logger) {
 		if (logger.isTraceEnabled()) {
 			logger.trace(message);
@@ -170,10 +163,6 @@ public class LogAspect {
 		}
 	}
 
-	/**
-	 * Vraci text obsahujici nazev metody a hodnoty (toString()) vsech jejich
-	 * argumentu
-	 */
 	private final String buildEnterMessage(final JoinPoint jp, final Logged log, boolean logValues) {
 		final StringBuilder sb = new StringBuilder();
 		sb.append(ENTER);
@@ -225,10 +214,6 @@ public class LogAspect {
 		return sb.toString();
 	}
 
-	/**
-	 * Vraci text obsahujici nazev metody a jeji vystup (toString() objektu,
-	 * ktery vraci metoda)
-	 */
 	private final String buildExitMessage(final Signature signature, final Logged log, boolean logValue,
 			final long execMillis, final Object retVal) {
 		final StringBuilder sb = new StringBuilder();
@@ -288,10 +273,6 @@ public class LogAspect {
 		return sb.toString();
 	}
 
-	/**
-	 * Pokud je logger nastaven na spravnou uroven, je sestaven a zalogovan text
-	 * obsahujici vyjimku, ktera nastala v prubehu sledovane metody.
-	 */
 	private final void printException(final Signature signature, final Logged cfg, final Logger logger,
 			final long execMillis, final Exception x) {
 
@@ -317,9 +298,6 @@ public class LogAspect {
 
 	}
 
-	/**
-	 * Sestavi text obsahujici hodnotu objektu value
-	 */
 	private final void buildValue(Object value, StringBuilder sb, int max) {
 		if (value == null) {
 			sb.append(NULL);
