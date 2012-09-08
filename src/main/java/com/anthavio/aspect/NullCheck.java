@@ -1,4 +1,4 @@
-package cz.komix.aspect.annotation;
+package com.anthavio.aspect;
 
 import static java.lang.annotation.ElementType.CONSTRUCTOR;
 import static java.lang.annotation.ElementType.METHOD;
@@ -9,7 +9,7 @@ import java.lang.annotation.Documented;
 import java.lang.annotation.Retention;
 import java.lang.annotation.Target;
 
-import cz.komix.aspect.NullCheckAspect;
+
 
 /**
  * Zakladem je javax.validation.NotNull. Znackovaci anotace pro {@link NullCheckAspect}

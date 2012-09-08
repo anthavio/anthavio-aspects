@@ -1,4 +1,4 @@
-package cz.komix.aspect;
+package com.anthavio.aspect;
 
 import java.security.AccessControlException;
 

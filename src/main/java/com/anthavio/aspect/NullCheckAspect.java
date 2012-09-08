@@ -1,4 +1,4 @@
-package cz.komix.aspect;
+package com.anthavio.aspect;
 
 import java.lang.annotation.Annotation;
 import java.lang.ref.SoftReference;
@@ -18,7 +18,6 @@ import org.aspectj.lang.reflect.CodeSignature;
 import org.aspectj.lang.reflect.ConstructorSignature;
 import org.aspectj.lang.reflect.MethodSignature;
 
-import cz.komix.aspect.annotation.NullCheck;
 
 /**
  * 
@@ -31,34 +30,34 @@ import cz.komix.aspect.annotation.NullCheck;
 @SuppressAjWarnings({ "adviceDidNotMatch" })
 public class NullCheckAspect {
 
-	//@Pointcut("execution(* *.*(@cz.komix.aspect.annotation.NullCheck (*),..)) && @annotation(check)")
+	//@Pointcut("execution(* *.*(@com.anthavio.aspect.NullCheck (*),..)) && @annotation(check)")
 
 	/**
 	 * Metody s nejakym parametrem s anotaci @NullCheck
 	 */
-	@Pointcut("execution(* *.*(.., @cz.komix.aspect.annotation.NullCheck (*),..))")
+	@Pointcut("execution(* *.*(.., @com.anthavio.aspect.NullCheck (*),..))")
 	public void isNullCheckParam() {
 	}
 
 	/**
 	 * Konstruktory s nejakym parametrem s anotaci @NullCheck
 	 */
-	@Pointcut("execution(*.new(.., @cz.komix.aspect.annotation.NullCheck (*),..))")
+	@Pointcut("execution(*.new(.., @com.anthavio.aspect.NullCheck (*),..))")
 	public void isNullCheckConstructorParam() {
 	}
 
-	//@Pointcut("execution((@cz.komix.aspect.annotation.NullCheck *) *(..))")
+	//@Pointcut("execution((@com.anthavio.aspect.NullCheck *) *(..))")
 	/**
 	 * Metody s maji anotaci @NullCheck a nejsou void - kontrola null navratove hodnoty
 	 */
-	@Pointcut("@annotation(cz.komix.aspect.annotation.NullCheck) && execution(!void *(..))")
+	@Pointcut("@annotation(com.anthavio.aspect.NullCheck) && execution(!void *(..))")
 	public void isNullCheckRetVal() {
 	}
 
 	/**
 	 * Konstruktory s anotaci @NullCheck - kontrola vsech parametru
 	 */
-	@Pointcut("@annotation(cz.komix.aspect.annotation.NullCheck) && execution(*.new(..))")
+	@Pointcut("@annotation(com.anthavio.aspect.NullCheck) && execution(*.new(..))")
 	public void isNullCheckConstructor() {
 	}
 

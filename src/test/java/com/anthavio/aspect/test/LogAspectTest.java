@@ -1,4 +1,4 @@
-package cz.komix.aspect.test;
+package com.anthavio.aspect.test;
 
 import static org.fest.assertions.Assertions.assertThat;
 
@@ -16,12 +16,13 @@ import org.testng.annotations.BeforeClass;
 import org.testng.annotations.BeforeMethod;
 import org.testng.annotations.Test;
 
+import com.anthavio.HibernateHelper;
+import com.anthavio.aspect.Logged;
+import com.anthavio.aspect.Logged.Mode;
+
 import ch.qos.logback.classic.Level;
 import ch.qos.logback.classic.LoggerContext;
 import ch.qos.logback.classic.spi.ILoggingEvent;
-import cz.komix.HibernateHelper;
-import cz.komix.aspect.annotation.Logged;
-import cz.komix.aspect.annotation.Logged.Mode;
 
 /**
  * 

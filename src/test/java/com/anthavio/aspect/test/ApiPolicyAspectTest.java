@@ -1,4 +1,4 @@
-package cz.komix.aspect.test;
+package com.anthavio.aspect.test;
 
 import static org.fest.assertions.Assertions.assertThat;
 
@@ -8,8 +8,9 @@ import org.testng.Assert;
 import org.testng.annotations.BeforeMethod;
 import org.testng.annotations.Test;
 
-import cz.komix.aspect.ApiPolicyAspect;
-import cz.komix.aspect.annotation.ApiPolicyOverride;
+import com.anthavio.aspect.ApiPolicyAspect;
+import com.anthavio.aspect.ApiPolicyOverride;
+
 
 public class ApiPolicyAspectTest {
 

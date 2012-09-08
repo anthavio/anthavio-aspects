@@ -1,4 +1,4 @@
-package cz.komix.aspect.test;
+package com.anthavio.aspect.test;
 
 import java.util.ArrayList;
 import java.util.List;

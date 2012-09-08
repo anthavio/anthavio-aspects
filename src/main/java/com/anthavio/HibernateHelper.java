@@ -1,7 +1,7 @@
 /**
  * 
  */
-package cz.komix;
+package com.anthavio;
 
 import java.lang.reflect.Method;
 

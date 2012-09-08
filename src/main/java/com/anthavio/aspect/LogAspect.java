@@ -1,4 +1,4 @@
-package cz.komix.aspect;
+package com.anthavio.aspect;
 
 import java.lang.reflect.Array;
 import java.util.Collection;
@@ -17,8 +17,8 @@ import org.aspectj.lang.reflect.MethodSignature;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-import cz.komix.HibernateHelper;
-import cz.komix.aspect.annotation.Logged;
+import com.anthavio.HibernateHelper;
+
 
 /**
  * AspectJ aspekt logujici volani (public) metod oznackovanych anotaci

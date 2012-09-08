@@ -1,4 +1,4 @@
-package cz.komix.aspect.test;
+package com.anthavio.aspect.test;
 
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -8,7 +8,8 @@ import java.util.Map;
 import org.testng.Assert;
 import org.testng.annotations.Test;
 
-import cz.komix.aspect.annotation.NullCheck;
+import com.anthavio.aspect.NullCheck;
+
 
 public class NullCheckAspectTest {
 
