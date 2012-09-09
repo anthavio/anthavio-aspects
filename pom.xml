@@ -377,7 +377,7 @@
 								<threshold>Low</threshold>
 							</configuration>
 						</plugin>
-
+						<!--
 						<plugin>
 							<groupId>net.sf</groupId>
 							<artifactId>stat-scm</artifactId>
@@ -389,7 +389,7 @@
 								</excludes>
 							</configuration>
 						</plugin>
-								
+						-->
 					</reportPlugins>
 				</configuration>
 			</plugin>
