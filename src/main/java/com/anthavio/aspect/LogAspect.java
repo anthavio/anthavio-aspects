@@ -70,7 +70,7 @@ public class LogAspect {
 	}
 
 	/** public method with @Logged annotated class */
-	@Pointcut("publicMethod() && !loggedMethod() && loggedClass() && @target(cfg)")
+	@Pointcut("publicMethod() && loggedClass() && !loggedMethod() && @target(cfg)")
 	public final void isLoggedClassMethod(Logged cfg) {
 	}
 
