@@ -1,5 +1,6 @@
 package com.anthavio.aspect;
 
+import java.io.Serializable;
 import java.lang.reflect.Array;
 import java.util.Collection;
 import java.util.Date;
@@ -331,21 +332,23 @@ public class LogAspect {
 		}
 	}
 
-	public static class ExecStats {
+	public static class ExecStats implements Serializable {
 
-		public Date lastExecutionDate;
+		private static final long serialVersionUID = 1L;
 
-		public long lastExecutionTime;
+		private Date lastExecutionDate;
 
-		public Date lastExceptionDate;
+		private long lastExecutionTime;
 
-		public long lastExceptionTime;
+		private Date lastExceptionDate;
 
-		public long average = 0;
+		private long lastExceptionTime;
 
-		public int exceptions = 0;
+		private long average = 0;
 
-		public long executions = 0;
+		private int exceptions = 0;
+
+		private long executions = 0;
 
 		private void execution(long startMillis, long execMillis) {
 			++executions;
@@ -361,6 +364,35 @@ public class LogAspect {
 			lastExceptionDate = new Date(startMillis);
 			lastExceptionTime = execMillis;
 		}
+
+		public Date getLastExecutionDate() {
+			return lastExecutionDate;
+		}
+
+		public long getLastExecutionTime() {
+			return lastExecutionTime;
+		}
+
+		public Date getLastExceptionDate() {
+			return lastExceptionDate;
+		}
+
+		public long getLastExceptionTime() {
+			return lastExceptionTime;
+		}
+
+		public long getAverage() {
+			return average;
+		}
+
+		public int getExceptions() {
+			return exceptions;
+		}
+
+		public long getExecutions() {
+			return executions;
+		}
+		
 
 	}
 }
