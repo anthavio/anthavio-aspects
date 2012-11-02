@@ -1,6 +1,6 @@
 package com.anthavio.aspect.test;
 
-import static org.fest.assertions.Assertions.assertThat;
+import static org.fest.assertions.api.Assertions.assertThat;
 
 import java.security.AccessControlException;
 
@@ -10,7 +10,6 @@ import org.testng.annotations.Test;
 
 import com.anthavio.aspect.ApiPolicyAspect;
 import com.anthavio.aspect.ApiPolicyOverride;
-
 
 public class ApiPolicyAspectTest {
 
@@ -69,7 +68,7 @@ public class ApiPolicyAspectTest {
 	}
 
 	@Test
-	//@ApiPolicyOverride
+	// @ApiPolicyOverride
 	public void testSystemOutClassOverride() {
 		new ApiPolicyOverriden().testSystemOutOverride();
 		assertThat(EventStoringAppender.getEvents().size()).isEqualTo(0);
@@ -82,14 +81,16 @@ public class ApiPolicyAspectTest {
 	}
 
 	public void testPrintStackTrace() {
-		new NullPointerException("Test require this printStackTrace").printStackTrace();
+		new NullPointerException("Test require this printStackTrace")
+				.printStackTrace();
 		assertThat(EventStoringAppender.getEvents().size()).isEqualTo(1);
 	}
 
 	@Test
 	@ApiPolicyOverride
 	public void testPrintStackTraceMethodOverride() {
-		new NullPointerException("Test require this printStackTrace").printStackTrace();
+		new NullPointerException("Test require this printStackTrace")
+				.printStackTrace();
 		assertThat(EventStoringAppender.getEvents().size()).isEqualTo(0);
 	}
 
@@ -121,6 +122,7 @@ class ApiPolicyOverriden {
 	}
 
 	public void testPrintStackTraceOverride() {
-		new NullPointerException("Test require this printStackTrace").printStackTrace();
+		new NullPointerException("Test require this printStackTrace")
+				.printStackTrace();
 	}
 }

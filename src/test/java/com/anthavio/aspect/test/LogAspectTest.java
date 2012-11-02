@@ -1,6 +1,6 @@
 package com.anthavio.aspect.test;
 
-import static org.fest.assertions.Assertions.assertThat;
+import static org.fest.assertions.api.Assertions.assertThat;
 
 import java.util.ArrayList;
 import java.util.Calendar;
@@ -16,19 +16,20 @@ import org.testng.annotations.BeforeClass;
 import org.testng.annotations.BeforeMethod;
 import org.testng.annotations.Test;
 
-import com.anthavio.HibernateHelper;
-import com.anthavio.aspect.Logged;
-import com.anthavio.aspect.Logged.Mode;
-
 import ch.qos.logback.classic.Level;
 import ch.qos.logback.classic.LoggerContext;
 import ch.qos.logback.classic.spi.ILoggingEvent;
+
+import com.anthavio.HibernateHelper;
+import com.anthavio.aspect.Logged;
+import com.anthavio.aspect.Logged.Mode;
 
 /**
  * 
  * @author vanek
  * 
- * Spis kvuli vypisu do konzole a esteticke posouzeni logovaciho vypisu nez opravdovy test
+ *         Spis kvuli vypisu do konzole a esteticke posouzeni logovaciho vypisu
+ *         nez opravdovy test
  */
 public class LogAspectTest {
 
@@ -40,7 +41,8 @@ public class LogAspectTest {
 
 	@BeforeClass
 	public void beforeClass() {
-		HibernateHelper.isHibernatePresent(); //static class initializer prints to log
+		HibernateHelper.isHibernatePresent(); // static class initializer prints to
+																					// log
 	}
 
 	@BeforeMethod
@@ -142,17 +144,17 @@ public class LogAspectTest {
 
 		assertThat(EventStoringAppender.getEvents().size()).isEqualTo(2);
 
-		//parameter is only type info
+		// parameter is only type info
 		ILoggingEvent enterEvent = EventStoringAppender.getEvents().get(0);
 		assertThat(enterEvent.getMessage()).doesNotContain(arg1);
 		assertThat(enterEvent.getMessage()).contains("String");
 
-		//return is detail
+		// return is detail
 		ILoggingEvent exitEvent = EventStoringAppender.getEvents().get(1);
 		assertThat(exitEvent.getMessage()).contains(arg1);
 		assertThat(exitEvent.getMessage()).doesNotContain("String");
 
-		notParIdx0(null);//just in case...
+		notParIdx0(null);// just in case...
 	}
 
 	@Test
@@ -162,17 +164,17 @@ public class LogAspectTest {
 
 		assertThat(EventStoringAppender.getEvents().size()).isEqualTo(2);
 
-		//parameter is detail
+		// parameter is detail
 		ILoggingEvent enterEvent = EventStoringAppender.getEvents().get(0);
 		assertThat(enterEvent.getMessage()).contains(arg1);
 		assertThat(enterEvent.getMessage()).doesNotContain("String");
 
-		//return is only type info
+		// return is only type info
 		ILoggingEvent exitEvent = EventStoringAppender.getEvents().get(1);
 		assertThat(exitEvent.getMessage()).doesNotContain(arg1);
 		assertThat(exitEvent.getMessage()).contains("String");
 
-		notRetVal(null); //just in case...
+		notRetVal(null); // just in case...
 	}
 
 	@Test
@@ -180,7 +182,7 @@ public class LogAspectTest {
 		voidMethod();
 		assertThat(EventStoringAppender.getEvents().size()).isEqualTo(2);
 
-		//return is void
+		// return is void
 		ILoggingEvent enterEvent = EventStoringAppender.getEvents().get(1);
 		assertThat(enterEvent.getMessage()).doesNotContain("null");
 	}
@@ -190,7 +192,7 @@ public class LogAspectTest {
 		voidStaticMethod();
 		assertThat(EventStoringAppender.getEvents().size()).isEqualTo(2);
 
-		//return is void
+		// return is void
 		ILoggingEvent enterEvent = EventStoringAppender.getEvents().get(1);
 		assertThat(enterEvent.getMessage()).doesNotContain("null");
 	}
@@ -201,7 +203,7 @@ public class LogAspectTest {
 			exception("BlaBlaBla", GregorianCalendar.getInstance());
 			Assert.fail("Prosla vyjimka?!?");
 		} catch (IllegalArgumentException iax) {
-			//ok
+			// ok
 		}
 		assertThat(EventStoringAppender.getEvents().size()).isEqualTo(2);
 
@@ -211,7 +213,8 @@ public class LogAspectTest {
 		assertThat(enterEvent.getMessage()).contains("GregorianCalendar");
 
 		ILoggingEvent exitEvent = EventStoringAppender.getEvents().get(1);
-		assertThat(exitEvent.getLevel().levelInt).isEqualTo(Level.ERROR_INT); //ERROR_INT !!!
+		assertThat(exitEvent.getLevel().levelInt).isEqualTo(Level.ERROR_INT); // ERROR_INT
+																																					// !!!
 		assertThat(exitEvent.getMessage()).contains("BlaBlaBla");
 		assertThat(exitEvent.getMessage()).contains("IllegalArgumentException");
 	}
@@ -245,7 +248,7 @@ public class LogAspectTest {
 
 	@Test
 	public void testDateMap() {
-		//lc.getLogger(LogAspectTest.class).setLevel(Level.INFO);
+		// lc.getLogger(LogAspectTest.class).setLevel(Level.INFO);
 		Map<String, Date> map = new HashMap<String, Date>();
 		map.put("fromDate", new Date());
 		map.put("untilDate", new Date());
@@ -261,11 +264,11 @@ public class LogAspectTest {
 		dummy.dummy(11);
 		assertThat(EventStoringAppender.getEvents().size()).isEqualTo(4);
 
-		dummy.yummy(); //nesmi zalogovat nepublic metodu
+		dummy.yummy(); // nesmi zalogovat nepublic metodu
 		assertThat(EventStoringAppender.getEvents().size()).isEqualTo(4);
 
 		ILoggingEvent enterEvent = EventStoringAppender.getEvents().get(0);
-		//default level v logback.xml je trace
+		// default level v logback.xml je trace
 		assertThat(enterEvent.getLevel().levelInt).isEqualTo(Level.TRACE_INT);
 	}
 
@@ -274,10 +277,10 @@ public class LogAspectTest {
 		DummyAnnotatedClass dummy = new DummyAnnotatedClass("argument");
 		assertThat(EventStoringAppender.getEvents().size()).isEqualTo(2);
 
-		dummy.yummy(); //nesmi zalogovat nepublic metodu
+		dummy.yummy(); // nesmi zalogovat nepublic metodu
 		assertThat(EventStoringAppender.getEvents().size()).isEqualTo(2);
 
-		new DummyAnnotatedClass(0); //nesmi zalogovat nepublic konstruktor
+		new DummyAnnotatedClass(0); // nesmi zalogovat nepublic konstruktor
 		assertThat(EventStoringAppender.getEvents().size()).isEqualTo(2);
 	}
 
