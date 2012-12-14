@@ -25,7 +25,7 @@
 	</scm>
 	
 	<properties>
-		<aspectj.version>1.6.12</aspectj.version>
+		<aspectj.version>1.7.1</aspectj.version>
 		<project.build.java.target>1.6</project.build.java.target>
 	</properties>
 
@@ -61,7 +61,7 @@
 		<dependency>
 			<groupId>ch.qos.logback</groupId>
 			<artifactId>logback-classic</artifactId>
-			<version>1.0.7</version>
+			<version>1.0.9</version>
 			<scope>test</scope>
 		</dependency>
 				
