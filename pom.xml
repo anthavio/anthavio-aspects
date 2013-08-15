@@ -25,7 +25,7 @@
 	</scm>
 	
 	<properties>
-		<aspectj.version>1.7.1</aspectj.version>
+		<aspectj.version>1.7.3</aspectj.version>
 		<project.build.java.target>1.6</project.build.java.target>
 	</properties>
 
@@ -53,7 +53,7 @@
 		<dependency>
 			<groupId>org.slf4j</groupId>
 			<artifactId>slf4j-api</artifactId>
-			<version>1.7.2</version>
+			<version>1.7.5</version>
 		</dependency>
 
 		<!-- test -->
@@ -61,14 +61,14 @@
 		<dependency>
 			<groupId>ch.qos.logback</groupId>
 			<artifactId>logback-classic</artifactId>
-			<version>1.0.9</version>
+			<version>1.0.13</version>
 			<scope>test</scope>
 		</dependency>
 				
 		<dependency>
 			<groupId>org.testng</groupId>
 			<artifactId>testng</artifactId>
-			<version>6.8</version>
+			<version>6.8.5</version>
 			<scope>test</scope>
 		</dependency>
 
