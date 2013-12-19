@@ -1,14 +1,15 @@
-package com.anthavio.aspect.test;
+package net.anthavio.aspect.test;
 
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
+import net.anthavio.aspect.NullCheck;
+
 import org.testng.Assert;
 import org.testng.annotations.Test;
 
-import com.anthavio.aspect.NullCheck;
 
 
 public class NullCheckAspectTest {

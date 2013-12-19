@@ -1,4 +1,4 @@
-package com.anthavio.aspect.test;
+package net.anthavio.aspect.test;
 
 import static org.fest.assertions.api.Assertions.assertThat;
 
@@ -10,6 +10,10 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
+import net.anthavio.HibernateHelper;
+import net.anthavio.aspect.Logged;
+import net.anthavio.aspect.Logged.Mode;
+
 import org.slf4j.LoggerFactory;
 import org.testng.Assert;
 import org.testng.annotations.BeforeClass;
@@ -20,16 +24,10 @@ import ch.qos.logback.classic.Level;
 import ch.qos.logback.classic.LoggerContext;
 import ch.qos.logback.classic.spi.ILoggingEvent;
 
-import com.anthavio.HibernateHelper;
-import com.anthavio.aspect.Logged;
-import com.anthavio.aspect.Logged.Mode;
-
 /**
- * 
+ * Spis kvuli vypisu do konzole a esteticke posouzeni logovaciho vypisu nez opravdovy test
+ *         
  * @author vanek
- * 
- *         Spis kvuli vypisu do konzole a esteticke posouzeni logovaciho vypisu
- *         nez opravdovy test
  */
 public class LogAspectTest {
 

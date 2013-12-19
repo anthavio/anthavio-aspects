@@ -1,7 +1,7 @@
 /**
  * 
  */
-package com.anthavio;
+package net.anthavio;
 
 import java.lang.reflect.Method;
 

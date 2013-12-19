@@ -1,15 +1,16 @@
-package com.anthavio.aspect.test;
+package net.anthavio.aspect.test;
 
 import static org.fest.assertions.api.Assertions.assertThat;
 
 import java.security.AccessControlException;
 
+import net.anthavio.aspect.ApiPolicyAspect;
+import net.anthavio.aspect.ApiPolicyOverride;
+
 import org.testng.Assert;
 import org.testng.annotations.BeforeMethod;
 import org.testng.annotations.Test;
 
-import com.anthavio.aspect.ApiPolicyAspect;
-import com.anthavio.aspect.ApiPolicyOverride;
 
 public class ApiPolicyAspectTest {
 

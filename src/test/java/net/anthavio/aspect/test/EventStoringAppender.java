@@ -1,4 +1,4 @@
-package com.anthavio.aspect.test;
+package net.anthavio.aspect.test;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -10,7 +10,7 @@ import ch.qos.logback.core.AppenderBase;
  * 
  * @author vanek
  * 
- * Pro testovani LogAspectu
+ * For LogAspectu testing
  */
 public class EventStoringAppender extends AppenderBase<ILoggingEvent> {
 

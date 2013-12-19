@@ -1,4 +1,4 @@
-package com.anthavio.aspect;
+package net.anthavio.aspect;
 
 import java.lang.annotation.Annotation;
 import java.lang.ref.SoftReference;
@@ -18,46 +18,45 @@ import org.aspectj.lang.reflect.CodeSignature;
 import org.aspectj.lang.reflect.ConstructorSignature;
 import org.aspectj.lang.reflect.MethodSignature;
 
-
 /**
  * 
  * @author vanek
  *
- * AspectJ aspekt kontrolujici nenullovost argumentu metodam, 
- * ktere maji parametry oznackovane anotaci {@link NullCheck}
+ * AspectJ aspect checking null method arguments.
+ * Uses {@link NullCheck} marking annotation
  */
 @Aspect
 @SuppressAjWarnings({ "adviceDidNotMatch" })
 public class NullCheckAspect {
 
-	//@Pointcut("execution(* *.*(@com.anthavio.aspect.NullCheck (*),..)) && @annotation(check)")
+	//@Pointcut("execution(* *.*(@net.anthavio.aspect.NullCheck (*),..)) && @annotation(check)")
 
 	/**
-	 * Metody s nejakym parametrem s anotaci @NullCheck
+	 * Metods having some prarameter annotated with @NullCheck
 	 */
-	@Pointcut("execution(* *.*(.., @com.anthavio.aspect.NullCheck (*),..))")
+	@Pointcut("execution(* *.*(.., @net.anthavio.aspect.NullCheck (*),..))")
 	public void isNullCheckParam() {
 	}
 
 	/**
-	 * Konstruktory s nejakym parametrem s anotaci @NullCheck
+	 * Constructors having some prarameter annotated with @NullCheck
 	 */
-	@Pointcut("execution(*.new(.., @com.anthavio.aspect.NullCheck (*),..))")
+	@Pointcut("execution(*.new(.., @net.anthavio.aspect.NullCheck (*),..))")
 	public void isNullCheckConstructorParam() {
 	}
 
-	//@Pointcut("execution((@com.anthavio.aspect.NullCheck *) *(..))")
+	//@Pointcut("execution((@net.anthavio.aspect.NullCheck *) *(..))")
 	/**
-	 * Metody s maji anotaci @NullCheck a nejsou void - kontrola null navratove hodnoty
+	 * Methods having @NullCheck annotation but not void - check return value for nullness
 	 */
-	@Pointcut("@annotation(com.anthavio.aspect.NullCheck) && execution(!void *(..))")
+	@Pointcut("@annotation(net.anthavio.aspect.NullCheck) && execution(!void *(..))")
 	public void isNullCheckRetVal() {
 	}
 
 	/**
-	 * Konstruktory s anotaci @NullCheck - kontrola vsech parametru
+	 * Constructors having @NullCheck annotation - check all parameters for nullness
 	 */
-	@Pointcut("@annotation(com.anthavio.aspect.NullCheck) && execution(*.new(..))")
+	@Pointcut("@annotation(net.anthavio.aspect.NullCheck) && execution(*.new(..))")
 	public void isNullCheckConstructor() {
 	}
 
@@ -143,8 +142,8 @@ public class NullCheckAspect {
 		}
 	}
 
-	//neni thread safe, ale maximalne se to pro nejaky JoinPoint vykona vickrat, coz je sumak
-	//nepouzit WeakHashMap ?
+	//Not thread safe, worst case is just to be executed multiple times for some JoinPoint, which is little nuisance
+	//Hmmmm what about WeakHashMap as store.... 
 	private final Map<String, SoftReference<CacheEntry>> cache = new HashMap<String, SoftReference<CacheEntry>>();
 
 	private static class CacheEntry {
@@ -200,7 +199,7 @@ public class NullCheckAspect {
 			}
 
 		} catch (NoSuchMethodException x) {
-			//Vyhazovat UnsupportedOperationException je trochu zoufalost...
+			//Throw UnsupportedOperationException is little desperate...
 			throw new UnsupportedOperationException("Method/Constructor not found by signature " + signature.toLongString(),
 					x);
 		}

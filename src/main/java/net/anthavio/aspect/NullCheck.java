@@ -1,4 +1,4 @@
-package com.anthavio.aspect;
+package net.anthavio.aspect;
 
 import static java.lang.annotation.ElementType.CONSTRUCTOR;
 import static java.lang.annotation.ElementType.METHOD;
@@ -9,18 +9,18 @@ import java.lang.annotation.Documented;
 import java.lang.annotation.Retention;
 import java.lang.annotation.Target;
 
-
-
 /**
- * Zakladem je javax.validation.NotNull. Znackovaci anotace pro {@link NullCheckAspect}
+ * Marking annotation for {@link NullCheckAspect}
+ * 
+ * Analogy of javax.validation.NotNull
  *
  * @author vanek
  */
 @Retention(RUNTIME)
-@Target( { PARAMETER, METHOD, CONSTRUCTOR })
+@Target({ PARAMETER, METHOD, CONSTRUCTOR })
 @Documented
 public @interface NullCheck {
-	String message() default "{com.anthavio.validation.constraints.NotNull.message}";
+	String message() default "{net.anthavio.validation.constraints.NotNull.message}";
 
 	Class<?>[] groups() default {};
 	/*

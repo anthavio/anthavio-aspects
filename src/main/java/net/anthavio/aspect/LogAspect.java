@@ -1,4 +1,4 @@
-package com.anthavio.aspect;
+package net.anthavio.aspect;
 
 import java.io.Serializable;
 import java.lang.reflect.Array;
@@ -6,6 +6,8 @@ import java.util.Collection;
 import java.util.Date;
 import java.util.Map;
 import java.util.concurrent.ConcurrentHashMap;
+
+import net.anthavio.HibernateHelper;
 
 import org.aspectj.lang.JoinPoint;
 import org.aspectj.lang.ProceedingJoinPoint;
@@ -17,9 +19,6 @@ import org.aspectj.lang.annotation.SuppressAjWarnings;
 import org.aspectj.lang.reflect.MethodSignature;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-
-import com.anthavio.HibernateHelper;
-
 
 /**
  * AspectJ aspect logs execution of any method marked with {@link Logged} annotation. 
@@ -44,7 +43,7 @@ public class LogAspect {
 	private Map<Signature, ExecStats> statsMap = new ConcurrentHashMap<Signature, ExecStats>();
 
 	/** All public methods */
-	//@Pointcut("within(com.anthavio..*) && execution(public * *(..))")
+	//@Pointcut("within(net.anthavio..*) && execution(public * *(..))")
 	@Pointcut("execution(public * *(..))")
 	public final void publicMethod() {
 	}
@@ -55,12 +54,12 @@ public class LogAspect {
 	}
 
 	/** @Logged annotated classes */
-	@Pointcut("within(@com.anthavio.aspect.Logged *)")
+	@Pointcut("within(@net.anthavio.aspect.Logged *)")
 	public final void loggedClass() {
 	}
 
 	/** @Logged annotated methods */
-	@Pointcut("execution(@com.anthavio.aspect.Logged * *(..))")
+	@Pointcut("execution(@net.anthavio.aspect.Logged * *(..))")
 	public final void loggedMethod() {
 	}
 
@@ -81,7 +80,7 @@ public class LogAspect {
 	}
 
 	/** @Logged annotated constructor */
-	@Around("execution(@com.anthavio.aspect.Logged new(..)) && @annotation(cfg)")
+	@Around("execution(@net.anthavio.aspect.Logged new(..)) && @annotation(cfg)")
 	public void isLoggedConstructor(ProceedingJoinPoint pjp, Logged cfg) throws Throwable {
 		around(pjp, cfg);
 	}
@@ -392,7 +391,6 @@ public class LogAspect {
 		public long getExecutions() {
 			return executions;
 		}
-		
 
 	}
 }

@@ -1,4 +1,4 @@
-package com.anthavio.aspect;
+package net.anthavio.aspect;
 
 import java.security.AccessControlException;
 
@@ -29,7 +29,7 @@ public class ApiPolicyAspect {
 
 	static final String pcPrintStackTrace = "(call(* java.lang.Throwable.printStackTrace()))";
 
-	static final String pcNotApiOverride = "!(withincode(@com.anthavio.aspect.ApiPolicyOverride * *(..)) || within(@com.anthavio.aspect.ApiPolicyOverride *))";
+	static final String pcNotApiOverride = "!(withincode(@net.anthavio.aspect.ApiPolicyOverride * *(..)) || within(@net.anthavio.aspect.ApiPolicyOverride *))";
 
 	@Pointcut(pcNotApiOverride)
 	public void notApiOverrideFlag() {
@@ -50,8 +50,7 @@ public class ApiPolicyAspect {
 	@DeclareWarning(pcPrintStackTrace + "&& " + pcNotApiOverride)
 	static final String PrintStackTraceMessage = "Throwable.printStackTrace() call from {joinpoint.sourcelocation.sourcefile}:{joinpoint.sourcelocation.line}";
 
-	//DeclareWarning nesmi referencovat pointcut podle jmena metody callSystemExit()
-	//jinak StackOverflowError pri ajc testu
+	//If DeclareWarning refers pointcut via method name - callSystemExit() then StackOverflowError on ajc test - nasty bug...
 	@DeclareWarning(pcSystemExit + " && " + pcNotApiOverride)
 	static final String systemExitMessage = "System.exit() call from {joinpoint.sourcelocation.sourcefile}:{joinpoint.sourcelocation.line}";
 
