@@ -10,7 +10,7 @@
 	
 	<groupId>net.anthavio</groupId>
 	<artifactId>anthavio-aspects</artifactId>
-	<version>1.0.0</version>
+	<version>1.0.1-SNAPSHOT</version>
 	<packaging>jar</packaging>
 	
 	<name>anthavio-aspects</name>
@@ -22,7 +22,7 @@
 		<connection>scm:git:git://github.com/anthavio/anthavio-aspects.git</connection>
 		<developerConnection>scm:git:git@github.com:anthavio/anthavio-aspects.git</developerConnection>
 		<url>https://github.com/anthavio/anthavio-aspects</url>
-	  <tag>v1.0.0</tag>
+	  <tag>HEAD</tag>
   </scm>
 	
 	<properties>
