@@ -10,7 +10,7 @@
 	
 	<groupId>net.anthavio</groupId>
 	<artifactId>anthavio-aspects</artifactId>
-	<version>1.0.1-SNAPSHOT</version>
+	<version>1.0.0-SNAPSHOT</version>
 	<packaging>jar</packaging>
 	
 	<name>anthavio-aspects</name>
@@ -355,10 +355,12 @@
 								<linkXref>true</linkXref>
 								<sourceEncoding>${project.build.sourceEncoding}</sourceEncoding>
 								<minimumTokens>100</minimumTokens>
+								<!--
 								<rulesets>
 									<ruleset>/rulesets/basic.xml</ruleset>
 									<ruleset>/rulesets/unusedcode.xml</ruleset>
 								</rulesets>
+								-->
 								<excludeRoots>
 									<excludeRoot>target/generated-sources</excludeRoot>
 									<excludeRoot>target/jsp-source</excludeRoot>
