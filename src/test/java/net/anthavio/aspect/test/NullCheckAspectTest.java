@@ -10,15 +10,18 @@ import net.anthavio.aspect.NullCheck;
 import org.testng.Assert;
 import org.testng.annotations.Test;
 
-
-
+/**
+ * 
+ * @author martin.vanek
+ *
+ */
 public class NullCheckAspectTest {
 
 	@Test
-	public void testParamDruhy() {
+	public void testParamSecond() {
 		try {
-			doParamDruhy(1, null);
-			Assert.fail("Prosla kontrola na null");
+			doParamSecond(1, null);
+			Assert.fail("On no! Null passed the check!");
 		} catch (IllegalArgumentException iax) {
 			//ok
 		}
@@ -26,10 +29,10 @@ public class NullCheckAspectTest {
 	}
 
 	@Test
-	public void testParamPrvni() {
+	public void testParamFirst() {
 		try {
-			doParamPrvni(null, 11);
-			Assert.fail("Prosla kontrola na null");
+			doParamFirst(null, 11);
+			Assert.fail("On no! Null passed the check!");
 		} catch (IllegalArgumentException iax) {
 			//ok
 		}
@@ -37,12 +40,12 @@ public class NullCheckAspectTest {
 
 	@Test
 	public void testParamTypes() {
-		doParamsArrayAndPrimitive(new Object(), true, (short) 1, 1, 1, 1.1f, 1.1d, new Object[0], null,
-				null, null, null, null, null, new boolean[0][0], new String[0][0][0][0][0]);
+		doParamsArrayAndPrimitive(new Object(), true, (short) 1, 1, 1, 1.1f, 1.1d, new Object[0], null, null, null, null,
+				null, null, new boolean[0][0], new String[0][0][0][0][0]);
 		try {
-			doParamsArrayAndPrimitive(null, true, (short) 1, 1, 1, 1.1f, 1.1d, null, null, null, null,
-					null, null, null, null, null);
-			Assert.fail("Prosla kontrola na null");
+			doParamsArrayAndPrimitive(null, true, (short) 1, 1, 1, 1.1f, 1.1d, null, null, null, null, null, null, null,
+					null, null);
+			Assert.fail("On no! Null passed the check!");
 		} catch (IllegalArgumentException iax) {
 			//ok
 		}
@@ -53,7 +56,7 @@ public class NullCheckAspectTest {
 		doParamsGenerics(new ArrayList<String>(), new HashMap<String, Long>());
 		try {
 			doParamsGenerics(null, null);
-			Assert.fail("Prosla kontrola na null");
+			Assert.fail("On no! Null passed the check!");
 		} catch (IllegalArgumentException iax) {
 			//ok
 		}
@@ -63,7 +66,7 @@ public class NullCheckAspectTest {
 	public void testStatic() {
 		try {
 			doStatic(null);
-			Assert.fail("Prosla kontrola na null");
+			Assert.fail("On no! Null passed the check!");
 		} catch (IllegalArgumentException iax) {
 			//ok
 		}
@@ -74,7 +77,7 @@ public class NullCheckAspectTest {
 	public void testRetVal() {
 		try {
 			doRetVal();
-			Assert.fail("Prosla kontrola na null");
+			Assert.fail("On no! Null passed the check!");
 		} catch (IllegalArgumentException iax) {
 			//ok
 		}
@@ -84,7 +87,7 @@ public class NullCheckAspectTest {
 	public void testRetVal2() {
 		try {
 			doRetVal2(1, 2);
-			Assert.fail("Prosla kontrola na null");
+			Assert.fail("On no! Null passed the check!");
 		} catch (IllegalArgumentException iax) {
 			//ok
 		}
@@ -97,7 +100,7 @@ public class NullCheckAspectTest {
 
 		try {
 			new DummyConstructor(null);
-			Assert.fail("Prosla kontrola na null u konstruktoru");
+			Assert.fail("On no! Null passed the check! u konstruktoru");
 		} catch (IllegalArgumentException iax) {
 			//ok
 		}
@@ -106,7 +109,7 @@ public class NullCheckAspectTest {
 
 		try {
 			new DummyConstructor(1, null);
-			Assert.fail("Prosla kontrola na null u konstruktoru");
+			Assert.fail("On no! Null passed the check! u konstruktoru");
 		} catch (IllegalArgumentException iax) {
 			//ok
 		}
@@ -114,34 +117,34 @@ public class NullCheckAspectTest {
 
 	@Test
 	public void testAll() {
-		doAll(1); //projde
+		doAll(1); //works
 
 		try {
 			doAll(null);
-			Assert.fail("Prosla kontrola na null");
+			Assert.fail("On no! Null passed the check!");
 		} catch (IllegalArgumentException iax) {
 			//ok
 		}
 
 		try {
 			doAll(666);
-			Assert.fail("Prosla kontrola na null");
+			Assert.fail("On no! Null passed the check!");
 		} catch (IllegalArgumentException iax) {
 			//ok
 		}
 	}
 
-	private void doParamPrvni(@NullCheck Integer s, int druhy) {
+	private void doParamFirst(@NullCheck Integer s, int second) {
 
 	}
 
-	protected void doParamDruhy(int prvni, @NullCheck String s) {
+	protected void doParamSecond(int first, @NullCheck String s) {
 
 	}
 
-	protected void doParamsArrayAndPrimitive(@NullCheck Object o, boolean b, short s, int i, long l,
-			float f, double d, @NullCheck Object[] ao, boolean[] ba, short[] sa, int[] ia, long[] la,
-			float[] fa, double[] da, @NullCheck boolean[][] ba2, @NullCheck String[][][][][] sa5) {
+	protected void doParamsArrayAndPrimitive(@NullCheck Object o, boolean b, short s, int i, long l, float f, double d,
+			@NullCheck Object[] ao, boolean[] ba, short[] sa, int[] ia, long[] la, float[] fa, double[] da,
+			@NullCheck boolean[][] ba2, @NullCheck String[][][][][] sa5) {
 	}
 
 	protected void doParamsGenerics(@NullCheck List<String> list, @NullCheck Map<String, Long> map) {
@@ -153,9 +156,9 @@ public class NullCheckAspectTest {
 	}
 
 	@NullCheck
-	void doRetValVoid(Integer s, Integer druhy) {
-		//void return nesmi byt advised
-		//nevim jak to otestovat tak jen AJDT v Eclipse tu nesmi ukazat advised sipku
+	void doRetValVoid(Integer s, Integer second) {
+		//void returning method must not be advised
+		//Don't know how to test it, but AJDT in Eclipse must not display arrow indicating joint point
 	}
 
 	@NullCheck
@@ -164,7 +167,7 @@ public class NullCheckAspectTest {
 	}
 
 	private @NullCheck
-	Integer doRetVal2(Integer s, Integer druhy) {
+	Integer doRetVal2(Integer s, Integer second) {
 		return null;
 	}
 
@@ -180,7 +183,7 @@ public class NullCheckAspectTest {
 
 class DummyConstructor {
 
-	public DummyConstructor(@NullCheck String hummy) {
+	public DummyConstructor(@NullCheck String yummy) {
 	}
 
 	@NullCheck

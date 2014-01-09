@@ -11,21 +11,25 @@ import org.testng.Assert;
 import org.testng.annotations.BeforeMethod;
 import org.testng.annotations.Test;
 
-
+/**
+ * 
+ * @author martin.vanek
+ *
+ */
 public class ApiPolicyAspectTest {
 
 	@BeforeMethod
 	public void before() {
 		EventStoringAppender.getEvents().clear();
-		ApiPolicyAspect.setKillKlag(false);
+		ApiPolicyAspect.setKillSwitch(false);
 	}
 
 	@Test
 	public void testSystemExit() {
-		ApiPolicyAspect.setKillKlag(true);
+		ApiPolicyAspect.setKillSwitch(true);
 		try {
 			System.exit(0);
-			Assert.fail("Prosel System.exit()");
+			Assert.fail("Passed System.exit()");
 		} catch (AccessControlException acx) {
 			assertThat(EventStoringAppender.getEvents().size()).isEqualTo(1);
 		}
@@ -33,10 +37,10 @@ public class ApiPolicyAspectTest {
 
 	@Test
 	public void testRuntimeHalt() {
-		ApiPolicyAspect.setKillKlag(true);
+		ApiPolicyAspect.setKillSwitch(true);
 		try {
 			Runtime.getRuntime().halt(0);
-			Assert.fail("Prosel Runtime.halt()");
+			Assert.fail("Passed Runtime.halt()");
 		} catch (AccessControlException acx) {
 			assertThat(EventStoringAppender.getEvents().size()).isEqualTo(1);
 		}
@@ -69,7 +73,6 @@ public class ApiPolicyAspectTest {
 	}
 
 	@Test
-	// @ApiPolicyOverride
 	public void testSystemOutClassOverride() {
 		new ApiPolicyOverriden().testSystemOutOverride();
 		assertThat(EventStoringAppender.getEvents().size()).isEqualTo(0);
@@ -82,16 +85,14 @@ public class ApiPolicyAspectTest {
 	}
 
 	public void testPrintStackTrace() {
-		new NullPointerException("Test require this printStackTrace")
-				.printStackTrace();
+		new NullPointerException("Test require this printStackTrace").printStackTrace();
 		assertThat(EventStoringAppender.getEvents().size()).isEqualTo(1);
 	}
 
 	@Test
 	@ApiPolicyOverride
 	public void testPrintStackTraceMethodOverride() {
-		new NullPointerException("Test require this printStackTrace")
-				.printStackTrace();
+		new NullPointerException("Test require this printStackTrace").printStackTrace();
 		assertThat(EventStoringAppender.getEvents().size()).isEqualTo(0);
 	}
 
@@ -123,7 +124,6 @@ class ApiPolicyOverriden {
 	}
 
 	public void testPrintStackTraceOverride() {
-		new NullPointerException("Test require this printStackTrace")
-				.printStackTrace();
+		new NullPointerException("Test require this printStackTrace").printStackTrace();
 	}
 }

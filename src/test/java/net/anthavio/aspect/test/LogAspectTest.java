@@ -25,7 +25,7 @@ import ch.qos.logback.classic.LoggerContext;
 import ch.qos.logback.classic.spi.ILoggingEvent;
 
 /**
- * Spis kvuli vypisu do konzole a esteticke posouzeni logovaciho vypisu nez opravdovy test
+ * More for esthetic evaluation of the logged output then proper test
  *         
  * @author vanek
  */
@@ -50,7 +50,7 @@ public class LogAspectTest {
 	}
 
 	/**
-	 * V DEBUG levelu se musi logovat skutecne poslane hodnoty parametru
+	 * DEBUG levelu must print parameter values
 	 */
 	@Test
 	public void testSimpleDebug() {
@@ -69,7 +69,7 @@ public class LogAspectTest {
 	}
 
 	/**
-	 * V INFO levelu se musi logovat pouze jmena trid parametru
+	 * INFO level logs only parameter types
 	 */
 	@Test
 	public void testSimpleInfo() {
@@ -89,13 +89,13 @@ public class LogAspectTest {
 	}
 
 	/**
-	 * V INFO levelu lze prinutit vypis hodnot
+	 * But INFO level can be enforced to print values
 	 */
 	@Test
 	public void testSimpleInfoForced() {
 		lc.getLogger(LogAspectTest.class).setLevel(Level.INFO);
 		String arg1 = "argument1";
-		simpleStringForced(arg1);
+		simpleStringEnforced(arg1);
 
 		assertThat(EventStoringAppender.getEvents().size()).isEqualTo(2);
 		ILoggingEvent enterEvent = EventStoringAppender.getEvents().get(0);
@@ -199,7 +199,7 @@ public class LogAspectTest {
 	public void testException() {
 		try {
 			exception("BlaBlaBla", GregorianCalendar.getInstance());
-			Assert.fail("Prosla vyjimka?!?");
+			Assert.fail("Exception must be thrown !");
 		} catch (IllegalArgumentException iax) {
 			// ok
 		}
@@ -262,11 +262,11 @@ public class LogAspectTest {
 		dummy.dummy(11);
 		assertThat(EventStoringAppender.getEvents().size()).isEqualTo(4);
 
-		dummy.yummy(); // nesmi zalogovat nepublic metodu
+		dummy.yummy(); // must not log non public method
 		assertThat(EventStoringAppender.getEvents().size()).isEqualTo(4);
 
 		ILoggingEvent enterEvent = EventStoringAppender.getEvents().get(0);
-		// default level v logback.xml je trace
+		// default level in logback.xml is trace
 		assertThat(enterEvent.getLevel().levelInt).isEqualTo(Level.TRACE_INT);
 	}
 
@@ -275,10 +275,10 @@ public class LogAspectTest {
 		DummyAnnotatedClass dummy = new DummyAnnotatedClass("argument");
 		assertThat(EventStoringAppender.getEvents().size()).isEqualTo(2);
 
-		dummy.yummy(); // nesmi zalogovat nepublic metodu
+		dummy.yummy(); // must not log non public method
 		assertThat(EventStoringAppender.getEvents().size()).isEqualTo(2);
 
-		new DummyAnnotatedClass(0); // nesmi zalogovat nepublic konstruktor
+		new DummyAnnotatedClass(0); // must not log non public constructor
 		assertThat(EventStoringAppender.getEvents().size()).isEqualTo(2);
 	}
 
@@ -306,7 +306,7 @@ public class LogAspectTest {
 	}
 
 	@Logged(forceValues = true)
-	private String simpleStringForced(String param1) {
+	private String simpleStringEnforced(String param1) {
 		return param1;
 	}
 

@@ -10,7 +10,7 @@ import ch.qos.logback.core.AppenderBase;
  * 
  * @author vanek
  * 
- * For LogAspectu testing
+ * For LogAspect testing
  */
 public class EventStoringAppender extends AppenderBase<ILoggingEvent> {
 
