@@ -11,16 +11,33 @@ import org.aspectj.lang.annotation.SuppressAjWarnings;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
+/**
+ * 
+ * @author martin.vanek
+ *
+ */
 @Aspect
 @SuppressAjWarnings({ "adviceDidNotMatch" })
 public class ApiPolicyAspect {
 
 	private final Logger log = LoggerFactory.getLogger(getClass());
 
-	private static boolean killFlag = false;
+	private static boolean killSwitch;
 
-	public static void setKillKlag(boolean killFlag) {
-		ApiPolicyAspect.killFlag = killFlag;
+	/**
+	 * java -DApiPolicyAspect.killSwitch=true com.something.MainClass
+	 */
+	static {
+		String killProperty = System.getProperty("ApiPolicyAspect.killSwitch");
+		if ("true".equals(killProperty)) {
+			killSwitch = true;
+		} else {
+			killSwitch = false; //well just to be explicitly clear what is default value...
+		}
+	}
+
+	public static void setKillSwitch(boolean killSwitch) {
+		ApiPolicyAspect.killSwitch = killSwitch;
 	}
 
 	static final String pcSystemExit = "(call(* java.lang.System.exit(int)) || call(* java.lang.Runtime.exit(int)))";
@@ -62,7 +79,7 @@ public class ApiPolicyAspect {
 		//log before killFlag may force to disable System.exit()
 		log.warn(jp.getSignature() + " acces at " + jp.getSourceLocation());
 
-		if (killFlag) {
+		if (killSwitch) {
 			throw new AccessControlException(jp.getSignature() + " acces at " + jp.getSourceLocation());
 		}
 	}
@@ -76,7 +93,7 @@ public class ApiPolicyAspect {
 	@Before(value = "(get(* System.out) || get(* System.err)) && notApiOverrideFlag()")
 	public void adviceSystemErrOut(JoinPoint.EnclosingStaticPart esp, JoinPoint jp) {
 
-		if (killFlag) {
+		if (killSwitch) {
 			throw new AccessControlException(jp.getSignature() + " acces at " + jp.getSourceLocation());
 		}
 		log.warn(jp.getSignature() + " acces at " + jp.getSourceLocation());
