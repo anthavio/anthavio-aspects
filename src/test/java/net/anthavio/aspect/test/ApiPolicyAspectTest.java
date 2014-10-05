@@ -7,9 +7,9 @@ import java.security.AccessControlException;
 import net.anthavio.aspect.ApiPolicyAspect;
 import net.anthavio.aspect.ApiPolicyOverride;
 
-import org.testng.Assert;
-import org.testng.annotations.BeforeMethod;
-import org.testng.annotations.Test;
+import org.assertj.core.api.Assertions;
+import org.junit.Before;
+import org.junit.Test;
 
 /**
  * 
@@ -18,7 +18,7 @@ import org.testng.annotations.Test;
  */
 public class ApiPolicyAspectTest {
 
-	@BeforeMethod
+	@Before
 	public void before() {
 		EventStoringAppender.getEvents().clear();
 		ApiPolicyAspect.setKillSwitch(false);
@@ -29,7 +29,7 @@ public class ApiPolicyAspectTest {
 		ApiPolicyAspect.setKillSwitch(true);
 		try {
 			System.exit(0);
-			Assert.fail("Passed System.exit()");
+			Assertions.fail("Passed System.exit()");
 		} catch (AccessControlException acx) {
 			assertThat(EventStoringAppender.getEvents().size()).isEqualTo(1);
 		}
@@ -40,7 +40,7 @@ public class ApiPolicyAspectTest {
 		ApiPolicyAspect.setKillSwitch(true);
 		try {
 			Runtime.getRuntime().halt(0);
-			Assert.fail("Passed Runtime.halt()");
+			Assertions.fail("Passed Runtime.halt()");
 		} catch (AccessControlException acx) {
 			assertThat(EventStoringAppender.getEvents().size()).isEqualTo(1);
 		}

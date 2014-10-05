@@ -14,11 +14,11 @@ import net.anthavio.HibernateHelper;
 import net.anthavio.aspect.Logged;
 import net.anthavio.aspect.Logged.Mode;
 
+import org.assertj.core.api.Assertions;
+import org.junit.Before;
+import org.junit.BeforeClass;
+import org.junit.Test;
 import org.slf4j.LoggerFactory;
-import org.testng.Assert;
-import org.testng.annotations.BeforeClass;
-import org.testng.annotations.BeforeMethod;
-import org.testng.annotations.Test;
 
 import ch.qos.logback.classic.Level;
 import ch.qos.logback.classic.LoggerContext;
@@ -38,12 +38,12 @@ public class LogAspectTest {
 	LoggerContext lc = (LoggerContext) LoggerFactory.getILoggerFactory();
 
 	@BeforeClass
-	public void beforeClass() {
+	public static void beforeClass() {
 		HibernateHelper.isHibernatePresent(); // static class initializer prints to
 																					// log
 	}
 
-	@BeforeMethod
+	@Before
 	public void before() {
 		lc.getLogger(LogAspectTest.class).setLevel(Level.DEBUG);
 		EventStoringAppender.getEvents().clear();
@@ -199,7 +199,7 @@ public class LogAspectTest {
 	public void testException() {
 		try {
 			exception("BlaBlaBla", GregorianCalendar.getInstance());
-			Assert.fail("Exception must be thrown !");
+			Assertions.fail("Exception must be thrown !");
 		} catch (IllegalArgumentException iax) {
 			// ok
 		}

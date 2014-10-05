@@ -7,8 +7,8 @@ import java.util.Map;
 
 import net.anthavio.aspect.NullCheck;
 
-import org.testng.Assert;
-import org.testng.annotations.Test;
+import org.assertj.core.api.Assertions;
+import org.junit.Test;
 
 /**
  * 
@@ -21,7 +21,7 @@ public class NullCheckAspectTest {
 	public void testParamSecond() {
 		try {
 			doParamSecond(1, null);
-			Assert.fail("On no! Null passed the check!");
+			Assertions.fail("On no! Null passed the check!");
 		} catch (IllegalArgumentException iax) {
 			//ok
 		}
@@ -32,7 +32,7 @@ public class NullCheckAspectTest {
 	public void testParamFirst() {
 		try {
 			doParamFirst(null, 11);
-			Assert.fail("On no! Null passed the check!");
+			Assertions.fail("On no! Null passed the check!");
 		} catch (IllegalArgumentException iax) {
 			//ok
 		}
@@ -45,7 +45,7 @@ public class NullCheckAspectTest {
 		try {
 			doParamsArrayAndPrimitive(null, true, (short) 1, 1, 1, 1.1f, 1.1d, null, null, null, null, null, null, null,
 					null, null);
-			Assert.fail("On no! Null passed the check!");
+			Assertions.fail("On no! Null passed the check!");
 		} catch (IllegalArgumentException iax) {
 			//ok
 		}
@@ -56,7 +56,7 @@ public class NullCheckAspectTest {
 		doParamsGenerics(new ArrayList<String>(), new HashMap<String, Long>());
 		try {
 			doParamsGenerics(null, null);
-			Assert.fail("On no! Null passed the check!");
+			Assertions.fail("On no! Null passed the check!");
 		} catch (IllegalArgumentException iax) {
 			//ok
 		}
@@ -66,7 +66,7 @@ public class NullCheckAspectTest {
 	public void testStatic() {
 		try {
 			doStatic(null);
-			Assert.fail("On no! Null passed the check!");
+			Assertions.fail("On no! Null passed the check!");
 		} catch (IllegalArgumentException iax) {
 			//ok
 		}
@@ -77,7 +77,7 @@ public class NullCheckAspectTest {
 	public void testRetVal() {
 		try {
 			doRetVal();
-			Assert.fail("On no! Null passed the check!");
+			Assertions.fail("On no! Null passed the check!");
 		} catch (IllegalArgumentException iax) {
 			//ok
 		}
@@ -87,7 +87,7 @@ public class NullCheckAspectTest {
 	public void testRetVal2() {
 		try {
 			doRetVal2(1, 2);
-			Assert.fail("On no! Null passed the check!");
+			Assertions.fail("On no! Null passed the check!");
 		} catch (IllegalArgumentException iax) {
 			//ok
 		}
@@ -100,7 +100,7 @@ public class NullCheckAspectTest {
 
 		try {
 			new DummyConstructor(null);
-			Assert.fail("On no! Null passed the check! u konstruktoru");
+			Assertions.fail("On no! Null passed the check! u konstruktoru");
 		} catch (IllegalArgumentException iax) {
 			//ok
 		}
@@ -109,7 +109,7 @@ public class NullCheckAspectTest {
 
 		try {
 			new DummyConstructor(1, null);
-			Assert.fail("On no! Null passed the check! u konstruktoru");
+			Assertions.fail("On no! Null passed the check! u konstruktoru");
 		} catch (IllegalArgumentException iax) {
 			//ok
 		}
@@ -121,14 +121,14 @@ public class NullCheckAspectTest {
 
 		try {
 			doAll(null);
-			Assert.fail("On no! Null passed the check!");
+			Assertions.fail("On no! Null passed the check!");
 		} catch (IllegalArgumentException iax) {
 			//ok
 		}
 
 		try {
 			doAll(666);
-			Assert.fail("On no! Null passed the check!");
+			Assertions.fail("On no! Null passed the check!");
 		} catch (IllegalArgumentException iax) {
 			//ok
 		}
@@ -166,8 +166,7 @@ public class NullCheckAspectTest {
 		return null;
 	}
 
-	private @NullCheck
-	Integer doRetVal2(Integer s, Integer second) {
+	private @NullCheck Integer doRetVal2(Integer s, Integer second) {
 		return null;
 	}
 
