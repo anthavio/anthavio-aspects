@@ -5,7 +5,7 @@
 	<parent>
 		<groupId>net.anthavio.maven</groupId>
 		<artifactId>anthavio-super-pom</artifactId>
-		<version>2</version>
+		<version>3</version>
 	</parent>
 	
 	<groupId>net.anthavio</groupId>
@@ -14,9 +14,8 @@
 	<packaging>jar</packaging>
 	
 	<name>anthavio-aspects</name>
-	
-	<inceptionYear>2010</inceptionYear>
 	<description>Anthavio AspectJ aspect library</description>
+	<inceptionYear>2010</inceptionYear>
 
 	<scm>
 		<connection>scm:git:git://github.com/anthavio/anthavio-aspects.git</connection>
@@ -25,13 +24,7 @@
 	  <tag>HEAD</tag>
   </scm>
 	
-	<properties>
-		<aspectj.version>1.7.4</aspectj.version>
-		<project.build.java.target>1.6</project.build.java.target>
-	</properties>
-
 	<developers>
-		
 		<developer>
 			<id>anthavio</id>
 			<name>Martin Vanek</name>
@@ -40,8 +33,12 @@
 				<role>Java Developer</role>
 			</roles>
 		</developer>
-
 	</developers>
+	
+	<properties>
+		<aspectj.version>1.7.4</aspectj.version>
+		<project.build.java.target>1.6</project.build.java.target>
+	</properties>
 
 	<dependencies>
 
