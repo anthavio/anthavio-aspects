@@ -77,26 +77,26 @@ public class ApiPolicyAspect {
 	@Before("(callRuntimeHalt() || callSystemExit()) && notApiOverrideFlag()")
 	public void adviceRuntimeHaltSystemExit(JoinPoint.EnclosingStaticPart esp, JoinPoint jp) {
 		//log before killFlag may force to disable System.exit()
-		log.warn(jp.getSignature() + " acces at " + jp.getSourceLocation());
+		log.warn(jp.getSignature() + " used at " + jp.getSourceLocation());
 
 		if (killSwitch) {
-			throw new AccessControlException(jp.getSignature() + " acces at " + jp.getSourceLocation());
+			throw new AccessControlException(jp.getSignature() + " used at " + jp.getSourceLocation());
 		}
 	}
 
 	@DeclareWarning("get(* System.out) && " + pcNotApiOverride)
-	static final String systemOutMessage = "System.out access at {joinpoint.sourcelocation.sourcefile}:{joinpoint.sourcelocation.line}";
+	static final String systemOutMessage = "System.out used at {joinpoint.sourcelocation.sourcefile}:{joinpoint.sourcelocation.line}";
 
 	@DeclareWarning("get(* System.err) && " + pcNotApiOverride)
-	static final String systemErrMessage = "System.err access at {joinpoint.sourcelocation.sourcefile}:{joinpoint.sourcelocation.line}";
+	static final String systemErrMessage = "System.err used at {joinpoint.sourcelocation.sourcefile}:{joinpoint.sourcelocation.line}";
 
 	@Before(value = "(get(* System.out) || get(* System.err)) && notApiOverrideFlag()")
 	public void adviceSystemErrOut(JoinPoint.EnclosingStaticPart esp, JoinPoint jp) {
 
 		if (killSwitch) {
-			throw new AccessControlException(jp.getSignature() + " acces at " + jp.getSourceLocation());
+			throw new AccessControlException(jp.getSignature() + " used at " + jp.getSourceLocation());
 		}
-		log.warn(jp.getSignature() + " acces at " + jp.getSourceLocation());
+		log.warn(jp.getSignature() + " used at " + jp.getSourceLocation());
 	}
 
 }

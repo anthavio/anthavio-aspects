@@ -8,6 +8,8 @@ import java.lang.annotation.Retention;
 import java.lang.annotation.RetentionPolicy;
 import java.lang.annotation.Target;
 
+import net.anthavio.aspect.LogHandler.DefaultLogHandler;
+
 /**
  * @author vanek
  * 
@@ -18,6 +20,8 @@ import java.lang.annotation.Target;
 public @interface Logged {
 
 	Mode mode() default Mode.AROUND;
+
+	Class<? extends LogHandler> handler() default DefaultLogHandler.class;
 
 	/**
 	 * @return parameter types that never should be logged as value
